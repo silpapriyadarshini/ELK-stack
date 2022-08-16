@@ -11,3 +11,6 @@ private_monitoring_cidr    = "192.168.2.0/24"
 private_app1_cidr          = "192.168.3.0/24"
 private_app2_cidr          = "192.168.4.0/24"
 private_app3_cidr          = "192.168.5.0/24"
+
+owner_id         = "099720109477"
+ami_name         = "ami-037af254cd2aaebb1"

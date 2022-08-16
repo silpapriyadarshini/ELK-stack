@@ -12,7 +12,7 @@ locals {
 }
 
 source "amazon-ebs" "ubuntu" {
-  ami_name      = "lab_ami-${local.timestamp}"
+  ami_name      = "lab-ami-${local.timestamp}"
   instance_type = "t2.micro"
 
   region                      = "ap-southeast-2"
