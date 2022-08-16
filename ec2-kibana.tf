@@ -1,5 +1,5 @@
 resource "aws_instance" "kibana_ec2" {
-  ami           = var.ami_name
+  ami           = var.kibana_ami_name
   instance_type = "t3.micro"
 
   vpc_security_group_ids = [aws_security_group.kibana_sg.id]

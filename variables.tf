@@ -46,11 +46,7 @@ variable "private_app3_cidr" {
     description = "This is my 3rd private cidr name for application server"
 }
 
-variable "owner_id" {
-    description = "This is my owner id"
-}
-
-variable "ami_name" {
+variable "kibana_ami_name" {
     description = "This is my owner name"
     type        = string
 }

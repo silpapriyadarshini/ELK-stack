@@ -7,18 +7,23 @@ packer {
   }
 }
 
+variable "ami_prefix" {
+  type    = string
+  default = "ami_elk"
+}
+
 locals {
   timestamp = regex_replace(timestamp(), "[- TZ:]", "")
 }
 
-source "amazon-ebs" "ubuntu" {
-  ami_name      = "lab-ami-${local.timestamp}"
+source "amazon-ebs" "elk-kibana" {
+  ami_name      = "${var.ami_prefix}-kibana-${local.timestamp}"
   instance_type = "t2.micro"
 
   region                      = "ap-southeast-2"
-  vpc_id                      = "vpc-04d8d8b5667a7d902"
-  subnet_id                   = "subnet-04740f0eb2901c8c1"
-  security_group_id           = "sg-0a823f8af6465dbd7"
+  vpc_id                      = "vpc-0971a31ec8b8f684c"
+  subnet_id                   = "subnet-026345e6ffad821c4"
+  security_group_id           = "sg-0512d1b40bddf544f"
   deprecate_at                = "2023-07-29T23:59:59Z"
   associate_public_ip_address = true
 
@@ -33,14 +38,17 @@ source "amazon-ebs" "ubuntu" {
   }
   ssh_username = "ubuntu"
   tags = {
-    Name = "elk-ami"
+    Name = "kibana-ami"
   }
 }
 
 build {
-  name = "elk_packer"
+  name = "packer-kibana"
 
   sources = [
-    "source.amazon-ebs.ubuntu"
+    "source.amazon-ebs.elk-kibana"
   ]
+  // provisioner "ansible" {
+  //   playbook_file = "./playbooks/main.yml"
+  // }
 }
