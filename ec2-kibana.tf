@@ -1,13 +1,3 @@
-# data "aws_ami" "ami-pkr" {
-#   most_recent = true
-#   owners = [var.owner_id]
-  
-#   filter {
-#     name   = "name"
-#     values = [var.ami_name]
-#   }
-# }
-
 resource "aws_instance" "kibana_ec2" {
   ami           = var.ami_name
   instance_type = "t3.micro"
@@ -24,4 +14,9 @@ resource "aws_instance" "kibana_ec2" {
 resource "aws_eip" "kibana_ip" {
   instance = aws_instance.kibana_ec2.id
   vpc = true
+}
+
+resource "aws_iam_instance_profile" "ssm_profile" {
+  name = "ssm-profile"
+  role = aws_iam_role.ssm_role.id
 }
