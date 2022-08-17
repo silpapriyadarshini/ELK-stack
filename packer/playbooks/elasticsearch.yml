@@ -66,3 +66,8 @@
       service:
         name: elasticsearch
         state: started
+    
+    - name: Enable Elasticsearch
+      service:
+        name: elasticsearch
+        enabled: yes

@@ -42,6 +42,7 @@ variable "private_app1_cidr" {
 variable "private_app2_cidr" {
     description = "This is my 2nd private cidr name for application server"
 }
+
 variable "private_app3_cidr" {
     description = "This is my 3rd private cidr name for application server"
 }
@@ -50,10 +51,12 @@ variable "kibana_ami_id" {
     description = "This is my ami id for Kibana"
     type        = string
 }
+
 variable "elasticsearch_ami_id" {
     description = "This is my ami id for ElasticSearch"
     type        = string
 }
+
 variable "logstash_ami_id" {
     description = "This is my ami id for Logstash"
     type        = string

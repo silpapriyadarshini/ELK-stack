@@ -18,6 +18,7 @@ resource "aws_instance" "elastic_search_ec2" {
   vpc_security_group_ids = [aws_security_group.elk_sg.id]
   key_name = "elk-key"
   subnet_id = aws_subnet.private_monitoring.id
+  iam_instance_profile = aws_iam_instance_profile.ssm_profile.name
 
   tags = {
     Name = "elastic-search-ec2"
