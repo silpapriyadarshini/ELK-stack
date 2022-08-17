@@ -36,7 +36,6 @@
         state: present
 
     # Add the Elasticsearch apt repo. For versions 6 of the stack - use '6.x-prerelease':
-
     - name: Adding Elasticsearch repo
       apt_repository:
         repo: deb https://artifacts.elastic.co/packages/7.x/apt stable main 
@@ -47,8 +46,7 @@
         name: elasticsearch
         update_cache: yes
       
-    # Update Elasticsearch config file to allow access (to secure Elasticsearch, bind to 'localhost'). 
-
+    # Update Elasticsearch config file to allow access (to secure Elasticsearch, bind to 'localhost').
     - name: Updating the config file to allow outside access
       lineinfile:
         destfile: /etc/elasticsearch/elasticsearch.yml
@@ -56,7 +54,6 @@
         line: 'network.host: 0.0.0.0'
     
     # Update Elasticsearch port in config file 
-
     - name: Updating the port in config file 
       lineinfile:
         destfile: /etc/elasticsearch/elasticsearch.yml
@@ -64,7 +61,6 @@
         line: 'http.port: 9200'
     
     # Update Elasticsearch nodes in config file
-
     - name: Updating the config file to allow outside access
       lineinfile:
         destfile: /etc/elasticsearch/elasticsearch.yml
