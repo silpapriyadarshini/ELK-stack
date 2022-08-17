@@ -12,4 +12,6 @@ private_app1_cidr          = "192.168.3.0/24"
 private_app2_cidr          = "192.168.4.0/24"
 private_app3_cidr          = "192.168.5.0/24"
 
-kibana_ami_name         = "ami-04e03543b88267ad3"
+kibana_ami_id              = "ami-0c782b66565dc0374"
+elasticsearch_ami_id       = "ami-0d263812483972069"
+logstash_ami_id            = "ami-024e5b185160fe66a"
