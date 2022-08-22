@@ -61,3 +61,8 @@ variable "logstash_ami_id" {
     description = "This is my ami id for Logstash"
     type        = string
 }
+
+variable "demo_ami_id" {
+    description = "This is my ami id for Demo"
+    type        = string
+}

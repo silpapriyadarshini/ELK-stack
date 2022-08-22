@@ -52,4 +52,3 @@ resource "aws_subnet" "private_app3" {
     Name = "private-app3"
   }
 }
-
