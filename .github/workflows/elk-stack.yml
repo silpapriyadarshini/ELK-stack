@@ -2,7 +2,7 @@ name: AutoScaling deployment in AWS
 on:
   push:
     branches:
-      default-branch
+      feature
 jobs:
    terraform-deploy:
       runs-on: ubuntu-latest
@@ -17,9 +17,9 @@ jobs:
         - name: AWS Authentication 
           uses: aws-actions/configure-aws-credentials@v1
           with:
-            role-to-assume: arn:aws:iam::699330879220:role/github-actions-oidc
-            aws-region: ap-south-1
-            role-session-name: GithubASGDeploy
+            role-to-assume: arn:aws:iam::772377598567:role/github_actions-oidc
+            aws-region: ap-southeast-2
+            role-session-name: GithubELKDeploy
 
         - name: Terraform Set up
           uses: hashicorp/setup-terraform@v1
