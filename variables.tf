@@ -62,7 +62,12 @@ variable "logstash_ami_id" {
     type        = string
 }
 
-variable "demo_ami_id" {
-    description = "This is my ami id for Demo"
+variable "demo1_ami_filebeat" {
+    description = "This is my ami id for Demo1 server for filebeat"
+    type        = string
+}
+
+variable "demo2_ami_metricbeat" {
+    description = "This is my ami id for Demo2 server for metricbeat"
     type        = string
 }

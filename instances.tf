@@ -40,7 +40,7 @@ resource "aws_instance" "logstash_ec2" {
 }
 
 resource "aws_instance" "demo1_ec2" {
-  ami           = var.demo_ami_id
+  ami           = var.demo1_ami_filebeat
   instance_type = "t2.micro"
 
   vpc_security_group_ids = [aws_security_group.demo_sg.id]
@@ -53,22 +53,22 @@ resource "aws_instance" "demo1_ec2" {
   }
 }
 
-# resource "aws_instance" "demo2_ec2" {
-#   ami           = var.demo_ami_id
-#   instance_type = "t2.micro"
+resource "aws_instance" "demo2_ec2" {
+  ami           = var.demo2_ami_metricbeat
+  instance_type = "t2.micro"
 
-#   vpc_security_group_ids = [aws_security_group.demo_sg.id]
-#   key_name = "elk-key"
-#   subnet_id = aws_subnet.private_app2.id
-#   iam_instance_profile = aws_iam_instance_profile.ssm_profile.name
+  vpc_security_group_ids = [aws_security_group.demo_sg.id]
+  key_name = "elk-key"
+  subnet_id = aws_subnet.private_app2.id
+  iam_instance_profile = aws_iam_instance_profile.ssm_profile.name
 
-#   tags = {
-#     Name = "demo2-ec2"
-#   }
-# }
+  tags = {
+    Name = "demo2-ec2"
+  }
+}
 
 # resource "aws_instance" "demo3_ec2" {
-#   ami           = var.demo_ami_id
+#   ami           = var.demo3_ami_id
 #   instance_type = "t2.micro"
 
 #   vpc_security_group_ids = [aws_security_group.demo_sg.id]

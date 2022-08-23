@@ -34,7 +34,7 @@ resource "aws_security_group" "kibana_sg" {
     from_port        = 80
     to_port          = 80
     protocol         = "tcp"
-    cidr_blocks      = [ "0.0.0.0/0" ]
+    cidr_blocks      = [ "27.7.113.227/32" ]
   }
 
   ingress {
@@ -42,7 +42,7 @@ resource "aws_security_group" "kibana_sg" {
     from_port        = 22
     to_port          = 22
     protocol         = "tcp"
-    cidr_blocks      = ["0.0.0.0/0"]
+    cidr_blocks      = ["27.7.113.227/32"]
   }
 
   ingress {
@@ -50,7 +50,7 @@ resource "aws_security_group" "kibana_sg" {
     from_port        = 5601
     to_port          = 5601
     protocol         = "tcp"
-    cidr_blocks      = ["0.0.0.0/0"]
+    cidr_blocks      = ["27.7.113.227/32"]
   }
 
   egress {
@@ -117,6 +117,14 @@ resource "aws_security_group" "logstash_sg" {
     description      = "Allow port 5044"
     from_port        = 5044
     to_port          = 5044
+    protocol         = "tcp"
+    cidr_blocks      = ["0.0.0.0/0"]
+  }
+
+  ingress {
+    description      = "Allow port 5066"
+    from_port        = 5066
+    to_port          = 5066
     protocol         = "tcp"
     cidr_blocks      = ["0.0.0.0/0"]
   }
