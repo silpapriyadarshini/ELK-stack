@@ -1,4 +1,4 @@
-name: AutoScaling deployment in AWS
+name: ELK deployment in AWS
 on:
   push:
     branches:
