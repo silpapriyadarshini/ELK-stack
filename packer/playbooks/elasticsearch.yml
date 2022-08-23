@@ -24,37 +24,18 @@
       become: yes
       apt:
         deb: /tmp/elasticsearch-7.14.0-amd64.deb
-    
-    - name: Updating Elasticsearch Config (IP Address)
+
+    - name: Add Details To Elastic Config YAML
       become: yes
-      lineinfile:
+      blockinfile:
         destfile: /etc/elasticsearch/elasticsearch.yml
-        regexp: 'network.host:'
-        line: 'network.host: 0.0.0.0'
-
-    - name: Updating the port in config file for Elasticsearch
-      lineinfile:
-        destfile: /etc/elasticsearch/elasticsearch.yml
-        regexp: 'http.port:'
-        line: 'http.port: 9200'
-
-    - name: Updating Elastic Config (Node Name)
-      lineinfile:
-        destfile: /etc/elasticsearch/elasticsearch.yml
-        regexp: '#node.name: node-1'
-        line: 'node.name: node-1'
-      
-    - name: Updating Elastic Config (Cluster Initial Master Nodes)
-      lineinfile:
-        destfile: /etc/elasticsearch/elasticsearch.yml
-        regexp: 'cluster.initial_master_nodes'
-        line: 'cluster.initial_master_nodes: ["pri_ip_es"]'   
-    
-    - name: Updating Elastic Config (Discovery Seed Hosts)
-      lineinfile:
-        destfile: /etc/elasticsearch/elasticsearch.yml
-        regexp: 'discovery.seed_hosts'
-        line: 'discovery.seed_hosts: ["pri_ip_es"]'
+        marker: ''
+        block: |
+          network.host: 0.0.0.0
+          http.port: 9200
+          node.name: esprd
+          cluster.initial_master_nodes: ["ip_es1"]
+          discovery.seed_hosts: ["ip_es1:9300"] 
 
     - name: Starting Elasticsearch
       service:

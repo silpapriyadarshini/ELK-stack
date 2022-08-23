@@ -8,7 +8,7 @@ resource "aws_security_group" "packer_sg" {
     from_port        = 22
     to_port          = 22
     protocol         = "tcp"
-    cidr_blocks      = ["0.0.0.0/0"]
+    cidr_blocks      = ["0.0.0.0/"]
   }
 
   egress {
@@ -34,7 +34,7 @@ resource "aws_security_group" "kibana_sg" {
     from_port        = 80
     to_port          = 80
     protocol         = "tcp"
-    cidr_blocks      = [ "27.7.113.227/32" ]
+    cidr_blocks      = ["0.0.0.0/0"]
   }
 
   ingress {
@@ -42,7 +42,7 @@ resource "aws_security_group" "kibana_sg" {
     from_port        = 22
     to_port          = 22
     protocol         = "tcp"
-    cidr_blocks      = ["27.7.113.227/32"]
+    cidr_blocks      = ["0.0.0.0/0"]
   }
 
   ingress {
@@ -50,7 +50,7 @@ resource "aws_security_group" "kibana_sg" {
     from_port        = 5601
     to_port          = 5601
     protocol         = "tcp"
-    cidr_blocks      = ["27.7.113.227/32"]
+    cidr_blocks      = ["0.0.0.0/0"]
   }
 
   egress {

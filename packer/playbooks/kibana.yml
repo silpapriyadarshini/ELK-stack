@@ -43,7 +43,7 @@
       lineinfile:
         destfile: /etc/kibana/kibana.yml
         regexp: 'elasticsearch.hosts'
-        line: 'elasticsearch.hosts: ["http://pri_ip_es:9200"]'
+        line: 'elasticsearch.hosts: ["http://3.105.243.70:9200"]'
     
     - name: Starting Kibana Service
       become: yes

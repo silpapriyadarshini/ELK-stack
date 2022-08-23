@@ -5,6 +5,7 @@ resource "aws_instance" "kibana_ec2" {
   vpc_security_group_ids = [aws_security_group.kibana_sg.id]
   key_name = "elk-key"
   subnet_id = aws_subnet.public_kibana.id
+  iam_instance_profile = aws_iam_instance_profile.ssm_profile.name
 
   tags = {
     Name = "kibana-ec2"
