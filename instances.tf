@@ -53,33 +53,33 @@ resource "aws_instance" "demo1_ec2" {
   }
 }
 
-resource "aws_instance" "demo2_ec2" {
-  ami           = var.demo_ami_id
-  instance_type = "t2.micro"
+# resource "aws_instance" "demo2_ec2" {
+#   ami           = var.demo_ami_id
+#   instance_type = "t2.micro"
 
-  vpc_security_group_ids = [aws_security_group.demo_sg.id]
-  key_name = "elk-key"
-  subnet_id = aws_subnet.private_app2.id
-  iam_instance_profile = aws_iam_instance_profile.ssm_profile.name
+#   vpc_security_group_ids = [aws_security_group.demo_sg.id]
+#   key_name = "elk-key"
+#   subnet_id = aws_subnet.private_app2.id
+#   iam_instance_profile = aws_iam_instance_profile.ssm_profile.name
 
-  tags = {
-    Name = "demo2-ec2"
-  }
-}
+#   tags = {
+#     Name = "demo2-ec2"
+#   }
+# }
 
-resource "aws_instance" "demo3_ec2" {
-  ami           = var.demo_ami_id
-  instance_type = "t2.micro"
+# resource "aws_instance" "demo3_ec2" {
+#   ami           = var.demo_ami_id
+#   instance_type = "t2.micro"
 
-  vpc_security_group_ids = [aws_security_group.demo_sg.id]
-  key_name = "elk-key"
-  subnet_id = aws_subnet.private_app3.id
-  iam_instance_profile = aws_iam_instance_profile.ssm_profile.name
+#   vpc_security_group_ids = [aws_security_group.demo_sg.id]
+#   key_name = "elk-key"
+#   subnet_id = aws_subnet.private_app3.id
+#   iam_instance_profile = aws_iam_instance_profile.ssm_profile.name
 
-  tags = {
-    Name = "demo3-ec2"
-  }
-}
+#   tags = {
+#     Name = "demo3-ec2"
+#   }
+# }
 
 resource "aws_eip" "kibana_ip" {
   instance = aws_instance.kibana_ec2.id

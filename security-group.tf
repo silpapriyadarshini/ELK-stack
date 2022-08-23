@@ -120,14 +120,6 @@ resource "aws_security_group" "logstash_sg" {
     protocol         = "tcp"
     cidr_blocks      = ["0.0.0.0/0"]
   }
-
-  ingress {
-    description = "allow port 9600"
-    from_port   = 9600
-    to_port     = 9600
-    protocol    = "tcp"
-    cidr_blocks = ["0.0.0.0/0"]
-  }
   
   egress {
     from_port        = 0
@@ -151,6 +143,14 @@ resource "aws_security_group" "demo_sg" {
     description      = "Allow port 22"
     from_port        = 22
     to_port          = 22
+    protocol         = "tcp"
+    cidr_blocks      = ["0.0.0.0/0"]
+  }
+
+  ingress {
+    description      = "Allow port 5044"
+    from_port        = 5044
+    to_port          = 5044
     protocol         = "tcp"
     cidr_blocks      = ["0.0.0.0/0"]
   }

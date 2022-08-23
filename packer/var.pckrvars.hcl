@@ -1,0 +1,5 @@
+instance_type       = "t2.micro"
+aws_region          = "ap-southeast-2"
+vpc_id              = "vpc-0afe5bb49d8423744"
+subnet_id           = "subnet-08c473f4b0ad6fd8c"
+security_group_id   = "sg-0b21e103b107244fb"
