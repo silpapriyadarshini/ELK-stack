@@ -48,8 +48,8 @@
               paths:
               - /var/log/*.log
             output.logstash:
-              hosts: ["pri_ip_logstash:5044"]
-          
+              hosts: ["localhost:5044"]
+          #hosts: ["pri_ip_logstash:5044"]
     - name: Starting FileBeat Service
       become: yes
       service:
