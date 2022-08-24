@@ -41,4 +41,3 @@
       service:
         name: elasticsearch
         state: started
-      

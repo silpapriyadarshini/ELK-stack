@@ -23,17 +23,17 @@ variable "aws_region" {
 
 variable "vpc_id" {
   type    = string
-  default = "vpc-0afe5bb49d8423744"
+  default = "vpc-06c9e2ba5ec6d6d2d"
 }
 
 variable "subnet_id" {
   type    = string
-  default = "subnet-08c473f4b0ad6fd8c"
+  default = "subnet-05b96b34b3bba542a"
 }
 
 variable "security_group_id" {
   type    = string
-  default = "sg-0b21e103b107244fb"
+  default = "sg-09c9dd9bde8281939"
 }
 
 source "amazon-ebs" "elk-kibana" {

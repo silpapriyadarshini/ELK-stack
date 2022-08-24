@@ -45,7 +45,7 @@
               }
             }
             output {
-              elasticsearch { hosts => ["pri_ip_es:9200"]
+              elasticsearch { hosts => ["http://52.62.184.195:9200"]
               }
             }
 
