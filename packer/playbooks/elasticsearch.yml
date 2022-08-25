@@ -35,7 +35,7 @@
           http.port: 9200
           node.name: esprd
           cluster.initial_master_nodes: ["ip_es1"]
-          discovery.seed_hosts: ["ip_es1:9200"] 
+          discovery.seed_hosts: ["ip_es1"] 
 
     - name: Starting Elasticsearch
       service:

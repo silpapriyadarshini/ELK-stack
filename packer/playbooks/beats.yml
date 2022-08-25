@@ -70,8 +70,8 @@
               paths:
               - /var/log/*.log
             output.logstash:
-              hosts: ["localhost:5044"]
-          #hosts: ["pri_ip_logstash:5044"]
+              hosts: ["pri_ip_logstash:5044"]
+          #hosts: ["localhost:5044"]
 
     - name: Adding metricbeat YAML Configuration
       become: yes
@@ -84,7 +84,7 @@
               paths:
               - /var/log/*.log
             output.logstash:
-              hosts: ["localhost:5066"]
+              hosts: ["pri_ip_logstash:5066"]
           
     - name: Starting FileBeat Service
       become: yes
