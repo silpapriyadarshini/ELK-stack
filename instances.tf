@@ -41,7 +41,7 @@ resource "aws_instance" "logstash_ec2" {
 }
 
 resource "aws_instance" "demo1_ec2" {
-  ami           = var.demo1_ami_filebeat
+  ami           = var.ami_beats
   instance_type = "t2.micro"
 
   vpc_security_group_ids = [aws_security_group.demo_sg.id]
@@ -55,7 +55,7 @@ resource "aws_instance" "demo1_ec2" {
 }
 
 resource "aws_instance" "demo2_ec2" {
-  ami           = var.demo2_ami_metricbeat
+  ami           = var.ami_beats
   instance_type = "t2.micro"
 
   vpc_security_group_ids = [aws_security_group.demo_sg.id]
@@ -68,24 +68,28 @@ resource "aws_instance" "demo2_ec2" {
   }
 }
 
-# resource "aws_instance" "demo3_ec2" {
-#   ami           = var.demo3_ami_id
-#   instance_type = "t2.micro"
+resource "aws_instance" "demo3_ec2" {
+  ami           = var.ami_beats
+  instance_type = "t2.micro"
 
-#   vpc_security_group_ids = [aws_security_group.demo_sg.id]
-#   key_name = "elk-key"
-#   subnet_id = aws_subnet.private_app3.id
-#   iam_instance_profile = aws_iam_instance_profile.ssm_profile.name
+  vpc_security_group_ids = [aws_security_group.demo_sg.id]
+  key_name = "elk-key"
+  subnet_id = aws_subnet.private_app3.id
+  iam_instance_profile = aws_iam_instance_profile.ssm_profile.name
+
+  tags = {
+    Name = "demo3-ec2"
+  }
+}
+
+# resource "aws_eip" "kibana_eip" {
+#   instance = aws_instance.kibana_ec2.id
+#   vpc = true
 
 #   tags = {
-#     Name = "demo3-ec2"
+#     Name = "kibana-eip"
 #   }
 # }
-
-resource "aws_eip" "kibana_ip" {
-  instance = aws_instance.kibana_ec2.id
-  vpc = true
-}
 
 resource "aws_iam_instance_profile" "ssm_profile" {
   name = "ssm-profile"

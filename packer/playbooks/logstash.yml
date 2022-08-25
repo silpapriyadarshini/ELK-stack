@@ -54,3 +54,8 @@
       service:
         name: logstash
         state: started
+
+    - name: Restart logstash server
+      service:
+        name: logstash
+        state: restarted

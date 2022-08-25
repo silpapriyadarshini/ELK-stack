@@ -43,10 +43,24 @@
       lineinfile:
         destfile: /etc/kibana/kibana.yml
         regexp: 'elasticsearch.hosts'
-        line: 'elasticsearch.hosts: ["ip_es1:9200"]'
+        line: 'elasticsearch.hosts: ["http://ip_es1:9200"]'
     
     - name: Starting Kibana Service
       become: yes
       service:
         name: kibana
         state: started
+    
+    - name: Restart kibana server
+      service:
+        name: kibana
+        state: restarted
+
+    # - name: Enabling Kibana service
+    #   systemd:
+    #     name: kibana
+    #     enabled: yes
+    #     daemon_reload: yes
+    
+    # - name: Ensure Kibana is running
+    #   systemd: state=started name=kibana

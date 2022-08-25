@@ -41,3 +41,8 @@
       service:
         name: elasticsearch
         state: started
+
+    - name: Restart elasticsearch server
+      service:
+        name: elasticsearch
+        state: restarted
