@@ -1,3 +1,16 @@
+# resource "aws_instance" "bastion_host" {
+#   ami           = data.aws_ami.ubuntu.id
+#   instance_type = "t2.micro"
+
+#   vpc_security_group_ids = [aws_security_group.bastion_sg.id]
+#   key_name = "elk-key"
+#   subnet_id = aws_subnet.public_kibana.id
+
+#   tags = {
+#     Name = "bastion-host"
+#   }
+# }
+
 resource "aws_instance" "kibana_ec2" {
   ami           = var.kibana_ami_id
   instance_type = "t2.micro"
@@ -81,15 +94,6 @@ resource "aws_instance" "demo3_ec2" {
     Name = "demo3-ec2"
   }
 }
-
-# resource "aws_eip" "kibana_eip" {
-#   instance = aws_instance.kibana_ec2.id
-#   vpc = true
-
-#   tags = {
-#     Name = "kibana-eip"
-#   }
-# }
 
 resource "aws_iam_instance_profile" "ssm_profile" {
   name = "ssm-profile"
