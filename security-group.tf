@@ -24,31 +24,31 @@ resource "aws_security_group" "packer_sg" {
   }
 }
 
-# resource "aws_security_group" "bastion_sg" {
-#   name        = "bastion-sg"
-#   description = "Allow connection for Bastion Host"
-#   vpc_id      = aws_vpc.elk_vpc.id
+resource "aws_security_group" "bastion_sg" {
+  name        = "bastion-sg"
+  description = "Allow connection for Bastion Host"
+  vpc_id      = aws_vpc.elk_vpc.id
 
-#   ingress {
-#     description      = "Allow port 22"
-#     from_port        = 22
-#     to_port          = 22
-#     protocol         = "tcp"
-#     cidr_blocks      = ["116.73.142.119/32"]
-#   }
+  ingress {
+    description      = "Allow port 22"
+    from_port        = 22
+    to_port          = 22
+    protocol         = "tcp"
+    cidr_blocks      = ["203.212.214.44/32"]
+  }
 
-#   egress {
-#     from_port        = 0
-#     to_port          = 0
-#     protocol         = "-1"
-#     cidr_blocks      = ["0.0.0.0/0"]
-#     ipv6_cidr_blocks = ["::/0"]
-#   }
+  egress {
+    from_port        = 0
+    to_port          = 0
+    protocol         = "-1"
+    cidr_blocks      = ["0.0.0.0/0"]
+    ipv6_cidr_blocks = ["::/0"]
+  }
 
-#   tags = {
-#     Name = "bastion-sg"
-#   }
-# }
+  tags = {
+    Name = "bastion-sg"
+  }
+}
 
 resource "aws_security_group" "kibana_sg" {
   name        = "kibana_sg"
@@ -60,7 +60,7 @@ resource "aws_security_group" "kibana_sg" {
     from_port        = 80
     to_port          = 80
     protocol         = "tcp"
-    cidr_blocks      = ["116.73.142.119/32"]
+    cidr_blocks      = ["203.212.214.44/32", "192.168.1.141/32"]
   }
 
   ingress {
@@ -68,7 +68,7 @@ resource "aws_security_group" "kibana_sg" {
     from_port        = 22
     to_port          = 22
     protocol         = "tcp"
-    cidr_blocks      = ["116.73.142.119/32"]
+    cidr_blocks      = ["203.212.214.44/32", "192.168.1.141/32"]
   }
 
   ingress {
@@ -76,7 +76,7 @@ resource "aws_security_group" "kibana_sg" {
     from_port        = 5601
     to_port          = 5601
     protocol         = "tcp"
-    cidr_blocks      = ["116.73.142.119/32"]
+    cidr_blocks      = ["203.212.214.44/32", "192.168.1.141/32"]
   }
 
   egress {
@@ -102,7 +102,7 @@ resource "aws_security_group" "elasticsearch_sg" {
     from_port        = 22
     to_port          = 22
     protocol         = "tcp"
-    cidr_blocks      = ["0.0.0.0/0"]
+    cidr_blocks      = ["192.168.1.147/32", "192.168.1.141/32"]   #private ip address of kibana
   }
 
   ingress {
@@ -110,7 +110,7 @@ resource "aws_security_group" "elasticsearch_sg" {
     from_port        = 9200
     to_port          = 9200
     protocol         = "tcp"
-    cidr_blocks      = ["0.0.0.0/0"]
+    cidr_blocks      = ["192.168.1.147/32", "192.168.1.141/32"]
   }
 
   egress {
@@ -136,15 +136,15 @@ resource "aws_security_group" "logstash_sg" {
     from_port        = 22
     to_port          = 22
     protocol         = "tcp"
-    cidr_blocks      = ["0.0.0.0/0"]
+    cidr_blocks      = ["192.168.2.174/32", "192.168.1.141/32"]
   }
 
   ingress {
     description      = "Allow port 5044"
-    from_port        = 5044
+    from_port        = 5043
     to_port          = 5044
     protocol         = "tcp"
-    cidr_blocks      = ["0.0.0.0/0"]
+    cidr_blocks      = ["192.168.2.174/32", "192.168.1.141/32"]
   }
 
   ingress {
@@ -152,7 +152,7 @@ resource "aws_security_group" "logstash_sg" {
     from_port        = 5066
     to_port          = 5066
     protocol         = "tcp"
-    cidr_blocks      = ["0.0.0.0/0"]
+    cidr_blocks      = ["192.168.2.174/32", "192.168.1.141/32"]
   }
   
   egress {
@@ -178,7 +178,7 @@ resource "aws_security_group" "demo_sg" {
     from_port        = 22
     to_port          = 22
     protocol         = "tcp"
-    cidr_blocks      = ["0.0.0.0/0"]
+    cidr_blocks      = ["192.168.1.141/32"]   #private ip address of BH
   }
 
   ingress {
@@ -186,7 +186,7 @@ resource "aws_security_group" "demo_sg" {
     from_port        = 5044
     to_port          = 5044
     protocol         = "tcp"
-    cidr_blocks      = ["0.0.0.0/0"]
+    cidr_blocks      = ["192.168.1.141/32"]
   }
 
   ingress {
@@ -194,7 +194,7 @@ resource "aws_security_group" "demo_sg" {
     from_port        = 5066
     to_port          = 5066
     protocol         = "tcp"
-    cidr_blocks      = ["0.0.0.0/0"]
+    cidr_blocks      = ["192.168.1.141/32"]
   }
   
   egress {
