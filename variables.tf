@@ -66,3 +66,53 @@ variable "ami_beats" {
     description = "This is my ami id for Demo1 server for filebeat"
     type        = string
 }
+
+variable "my_pub_ip" {
+    description = "This is the my public ip"
+    type        = string
+}
+
+variable "pub_ip_kibana" {
+    description = "This is the public ip for kibana"
+    type        = string
+}
+
+variable "pub_ip_bastionhost" {
+    description = "This is the public ip for bastion host"
+    type        = string
+}
+
+variable "pri_ip_kibana" {
+    description = "This is the private ip for kibana"
+    type        = string
+}
+
+variable "pri_ip_elasticsearch" {
+    description = "This is the private ip for elasticsearch"
+    type        = string
+}
+
+variable "pri_ip_logstash" {
+    description = "This is the private ip for logstash"
+    type        = string
+}
+
+variable "pri_ip_bastionhost" {
+    description = "This is the private ip for bastionhost"
+    type        = string
+}
+
+variable "pri_ip_demo1" {
+    description = "This is the private ip for demo1 server"
+    type        = string
+}
+
+variable "pri_ip_demo2" {
+    description = "This is the private ip for demo2 server"
+    type        = string
+}
+
+variable "pri_ip_demo3" {
+    description = "This is the private ip for demo3 server"
+    type        = string
+}

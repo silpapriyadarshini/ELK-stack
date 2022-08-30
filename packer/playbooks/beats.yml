@@ -17,23 +17,23 @@
 
     - name: Downloading Filebeat Package
       get_url:
-        url: https://artifacts.elastic.co/downloads/beats/filebeat/filebeat-7.17.0-amd64.deb
+        url: https://artifacts.elastic.co/downloads/beats/filebeat/filebeat-7.17.5-amd64.deb
         dest: /tmp
     
     - name: Downloading metricbeat Package
       get_url:
-        url: https://artifacts.elastic.co/downloads/beats/metricbeat/metricbeat-7.9.0-amd64.deb
+        url: https://artifacts.elastic.co/downloads/beats/metricbeat/metricbeat-7.17.5-amd64.deb
         dest: /tmp
 
     - name: Installing FileBeat Deb Package
       become: yes
       apt:
-        deb: /tmp/filebeat-7.17.0-amd64.deb
+        deb: /tmp/filebeat-7.17.5-amd64.deb
     
     - name: Installing metricbeat Deb Package
       become: yes
       apt:
-        deb: /tmp/metricbeat-7.9.0-amd64.deb
+        deb: /tmp/metricbeat-7.17.5-amd64.deb
 
     - name: Removing FileBeat YAML File
       become: yes
@@ -71,7 +71,7 @@
               - /var/log/*.log
             output.logstash:
               hosts: ["pri_ip_logstash:5044"]
-          #hosts: ["localhost:5044"]
+#hosts: ["localhost:5044"]
 
     - name: Adding metricbeat YAML Configuration
       become: yes

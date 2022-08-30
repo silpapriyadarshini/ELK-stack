@@ -34,7 +34,7 @@ resource "aws_security_group" "bastion_sg" {
     from_port        = 22
     to_port          = 22
     protocol         = "tcp"
-    cidr_blocks      = ["203.212.214.44/32"]
+    cidr_blocks      = [var.my_pub_ip]
   }
 
   egress {
@@ -60,7 +60,7 @@ resource "aws_security_group" "kibana_sg" {
     from_port        = 80
     to_port          = 80
     protocol         = "tcp"
-    cidr_blocks      = ["203.212.214.44/32", "192.168.1.141/32"]
+    cidr_blocks      = [var.pri_ip_bastionhost, var.my_pub_ip]  
   }
 
   ingress {
@@ -68,7 +68,7 @@ resource "aws_security_group" "kibana_sg" {
     from_port        = 22
     to_port          = 22
     protocol         = "tcp"
-    cidr_blocks      = ["203.212.214.44/32", "192.168.1.141/32"]
+    cidr_blocks      = [var.pri_ip_bastionhost, var.my_pub_ip]
   }
 
   ingress {
@@ -76,7 +76,7 @@ resource "aws_security_group" "kibana_sg" {
     from_port        = 5601
     to_port          = 5601
     protocol         = "tcp"
-    cidr_blocks      = ["203.212.214.44/32", "192.168.1.141/32"]
+    cidr_blocks      = [var.pri_ip_bastionhost, var.my_pub_ip]
   }
 
   egress {
@@ -102,7 +102,7 @@ resource "aws_security_group" "elasticsearch_sg" {
     from_port        = 22
     to_port          = 22
     protocol         = "tcp"
-    cidr_blocks      = ["192.168.1.147/32", "192.168.1.141/32"]   #private ip address of kibana
+    cidr_blocks      = [var.pri_ip_bastionhost, var.pri_ip_kibana]   
   }
 
   ingress {
@@ -110,7 +110,7 @@ resource "aws_security_group" "elasticsearch_sg" {
     from_port        = 9200
     to_port          = 9200
     protocol         = "tcp"
-    cidr_blocks      = ["192.168.1.147/32", "192.168.1.141/32"]
+    cidr_blocks      = [var.pri_ip_bastionhost, var.pri_ip_kibana]
   }
 
   egress {
@@ -136,7 +136,7 @@ resource "aws_security_group" "logstash_sg" {
     from_port        = 22
     to_port          = 22
     protocol         = "tcp"
-    cidr_blocks      = ["192.168.2.174/32", "192.168.1.141/32"]
+    cidr_blocks      = [var.pri_ip_bastionhost, var.pri_ip_elasticsearch]
   }
 
   ingress {
@@ -144,7 +144,7 @@ resource "aws_security_group" "logstash_sg" {
     from_port        = 5043
     to_port          = 5044
     protocol         = "tcp"
-    cidr_blocks      = ["192.168.2.174/32", "192.168.1.141/32"]
+    cidr_blocks      = [var.pri_ip_bastionhost, var.pri_ip_elasticsearch]
   }
 
   ingress {
@@ -152,7 +152,7 @@ resource "aws_security_group" "logstash_sg" {
     from_port        = 5066
     to_port          = 5066
     protocol         = "tcp"
-    cidr_blocks      = ["192.168.2.174/32", "192.168.1.141/32"]
+    cidr_blocks      = [var.pri_ip_bastionhost, var.pri_ip_elasticsearch]
   }
   
   egress {
@@ -178,7 +178,7 @@ resource "aws_security_group" "demo_sg" {
     from_port        = 22
     to_port          = 22
     protocol         = "tcp"
-    cidr_blocks      = ["192.168.1.141/32"]   #private ip address of BH
+    cidr_blocks      = [var.pri_ip_bastionhost]
   }
 
   ingress {
@@ -186,7 +186,7 @@ resource "aws_security_group" "demo_sg" {
     from_port        = 5044
     to_port          = 5044
     protocol         = "tcp"
-    cidr_blocks      = ["192.168.1.141/32"]
+    cidr_blocks      = [var.pri_ip_bastionhost]
   }
 
   ingress {
@@ -194,7 +194,7 @@ resource "aws_security_group" "demo_sg" {
     from_port        = 5066
     to_port          = 5066
     protocol         = "tcp"
-    cidr_blocks      = ["192.168.1.141/32"]
+    cidr_blocks      = [var.pri_ip_bastionhost]
   }
   
   egress {

@@ -16,13 +16,13 @@
 
     - name: Downloading Kibana Deb Package
       get_url:
-        url: https://artifacts.elastic.co/downloads/kibana/kibana-8.3.0-amd64.deb
+        url: https://artifacts.elastic.co/downloads/kibana/kibana-7.17.5-amd64.deb
         dest: /tmp
 
     - name: Installing Kibana Deb Package
       become: yes
       apt:
-        deb: /tmp/kibana-8.3.0-amd64.deb
+        deb: /tmp/kibana-7.17.5-amd64.deb
     
     - name: Updating Kibana Config (IP Address)
       become: yes
