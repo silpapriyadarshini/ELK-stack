@@ -36,42 +36,42 @@ variable "security_group_id" {
   default = "sg-09c9dd9bde8281939"
 }
 
-source "amazon-ebs" "elk-kibana" {
-  ami_name                    = "ami-kibana-${local.timestamp}"
-  instance_type               = var.instance_type
-  region                      = var.aws_region
-  vpc_id                      = var.vpc_id
-  subnet_id                   = var.subnet_id
-  security_group_id           = var.security_group_id
-  deprecate_at                = "2023-07-29T23:59:59Z"
-  associate_public_ip_address = true
-  force_deregister            = true
-  force_delete_snapshot       = true
+// source "amazon-ebs" "elk-kibana" {
+//   ami_name                    = "ami-kibana-${local.timestamp}"
+//   instance_type               = var.instance_type
+//   region                      = var.aws_region
+//   vpc_id                      = var.vpc_id
+//   subnet_id                   = var.subnet_id
+//   security_group_id           = var.security_group_id
+//   deprecate_at                = "2023-07-29T23:59:59Z"
+//   associate_public_ip_address = true
+//   force_deregister            = true
+//   force_delete_snapshot       = true
 
-  source_ami_filter {
-    filters = {
-      name                = "ubuntu/images/hvm-ssd/ubuntu-jammy-22.04-amd64-server-*"
-      root-device-type    = "ebs"
-      virtualization-type = "hvm"
-    }
-    most_recent = true
-    owners      = ["099720109477"]
-  }
-  ssh_username = "ubuntu"
-  tags = {
-    Name = "kibana-ami"
-  }
-}
+//   source_ami_filter {
+//     filters = {
+//       name                = "ubuntu/images/hvm-ssd/ubuntu-jammy-22.04-amd64-server-*"
+//       root-device-type    = "ebs"
+//       virtualization-type = "hvm"
+//     }
+//     most_recent = true
+//     owners      = ["099720109477"]
+//   }
+//   ssh_username = "ubuntu"
+//   tags = {
+//     Name = "kibana-ami"
+//   }
+// }
 
-build {
-  name = "packer-kibana"
-  sources = [
-    "source.amazon-ebs.elk-kibana"
-  ]
-  provisioner "ansible" {
-    playbook_file = "./playbooks/kibana.yml"
-  }
-}
+// build {
+//   name = "packer-kibana"
+//   sources = [
+//     "source.amazon-ebs.elk-kibana"
+//   ]
+//   provisioner "ansible" {
+//     playbook_file = "./playbooks/kibana.yml"
+//   }
+// }
 
 source "amazon-ebs" "elk-elasticsearch" {
   ami_name                    = "ami-elasticsearch-${local.timestamp}"
@@ -110,76 +110,76 @@ build {
   }
 }
 
-source "amazon-ebs" "elk-logstash" {
-  ami_name                    = "ami-logstash-${local.timestamp}"
-  instance_type               = var.instance_type
-  region                      = var.aws_region
-  vpc_id                      = var.vpc_id
-  subnet_id                   = var.subnet_id
-  security_group_id           = var.security_group_id
-  deprecate_at                = "2023-07-29T23:59:59Z"
-  associate_public_ip_address = true
-  force_deregister            = true
-  force_delete_snapshot       = true
+// source "amazon-ebs" "elk-logstash" {
+//   ami_name                    = "ami-logstash-${local.timestamp}"
+//   instance_type               = var.instance_type
+//   region                      = var.aws_region
+//   vpc_id                      = var.vpc_id
+//   subnet_id                   = var.subnet_id
+//   security_group_id           = var.security_group_id
+//   deprecate_at                = "2023-07-29T23:59:59Z"
+//   associate_public_ip_address = true
+//   force_deregister            = true
+//   force_delete_snapshot       = true
 
-  source_ami_filter {
-    filters = {
-      name                = "ubuntu/images/hvm-ssd/ubuntu-jammy-22.04-amd64-server-*"
-      root-device-type    = "ebs"
-      virtualization-type = "hvm"
-    }
-    most_recent = true
-    owners      = ["099720109477"]
-  }
-  ssh_username = "ubuntu"
-  tags = {
-    Name = "logstash-ami"
-  }
-}
+//   source_ami_filter {
+//     filters = {
+//       name                = "ubuntu/images/hvm-ssd/ubuntu-jammy-22.04-amd64-server-*"
+//       root-device-type    = "ebs"
+//       virtualization-type = "hvm"
+//     }
+//     most_recent = true
+//     owners      = ["099720109477"]
+//   }
+//   ssh_username = "ubuntu"
+//   tags = {
+//     Name = "logstash-ami"
+//   }
+// }
 
-build {
-  name = "packer-logstash"
-  sources = [
-    "source.amazon-ebs.elk-logstash"
-  ]
-  provisioner "ansible" {
-    playbook_file = "./playbooks/logstash.yml"
-  }
-}
+// build {
+//   name = "packer-logstash"
+//   sources = [
+//     "source.amazon-ebs.elk-logstash"
+//   ]
+//   provisioner "ansible" {
+//     playbook_file = "./playbooks/logstash.yml"
+//   }
+// }
 
-source "amazon-ebs" "elk-beats" {
-  ami_name                    = "ami-beats-${local.timestamp}"
-  instance_type               = var.instance_type
-  region                      = var.aws_region
-  vpc_id                      = var.vpc_id
-  subnet_id                   = var.subnet_id
-  security_group_id           = var.security_group_id
-  deprecate_at                = "2023-07-29T23:59:59Z"
-  associate_public_ip_address = true
-  force_deregister            = true
-  force_delete_snapshot       = true
+// source "amazon-ebs" "elk-beats" {
+//   ami_name                    = "ami-beats-${local.timestamp}"
+//   instance_type               = var.instance_type
+//   region                      = var.aws_region
+//   vpc_id                      = var.vpc_id
+//   subnet_id                   = var.subnet_id
+//   security_group_id           = var.security_group_id
+//   deprecate_at                = "2023-07-29T23:59:59Z"
+//   associate_public_ip_address = true
+//   force_deregister            = true
+//   force_delete_snapshot       = true
 
-  source_ami_filter {
-    filters = {
-      name                = "ubuntu/images/hvm-ssd/ubuntu-jammy-22.04-amd64-server-*"
-      root-device-type    = "ebs"
-      virtualization-type = "hvm"
-    }
-    most_recent = true
-    owners      = ["099720109477"]
-  }
-  ssh_username = "ubuntu"
-  tags = {
-    Name = "ami-beats"
-  }
-}
+//   source_ami_filter {
+//     filters = {
+//       name                = "ubuntu/images/hvm-ssd/ubuntu-jammy-22.04-amd64-server-*"
+//       root-device-type    = "ebs"
+//       virtualization-type = "hvm"
+//     }
+//     most_recent = true
+//     owners      = ["099720109477"]
+//   }
+//   ssh_username = "ubuntu"
+//   tags = {
+//     Name = "ami-beats"
+//   }
+// }
 
-build {
-  name = "packer-demo"
-  sources = [
-    "source.amazon-ebs.elk-beats"
-  ]
-  provisioner "ansible" {
-    playbook_file = "./playbooks/beats.yml"
-  }
-}
+// build {
+//   name = "packer-demo"
+//   sources = [
+//     "source.amazon-ebs.elk-beats"
+//   ]
+//   provisioner "ansible" {
+//     playbook_file = "./playbooks/beats.yml"
+//   }
+// }

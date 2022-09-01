@@ -16,13 +16,13 @@
 
     - name: Downloading Kibana Deb Package
       get_url:
-        url: https://artifacts.elastic.co/downloads/kibana/kibana-7.17.5-amd64.deb
+        url: https://artifacts.elastic.co/downloads/kibana/kibana-8.1.3-amd64.deb
         dest: /tmp
 
     - name: Installing Kibana Deb Package
       become: yes
       apt:
-        deb: /tmp/kibana-7.17.5-amd64.deb
+        deb: /tmp/kibana-8.1.3-amd64.deb
     
     - name: Updating Kibana Config (IP Address)
       become: yes
@@ -43,7 +43,8 @@
       lineinfile:
         destfile: /etc/kibana/kibana.yml
         regexp: 'elasticsearch.hosts'
-        line: 'elasticsearch.hosts: ["http://ip_es1:9200"]'
+        line: 'elasticsearch.hosts: ["http://pri_es:9200"]'
+    #private ip of elaticsearch
     
     - name: Starting Kibana Service
       become: yes
@@ -51,7 +52,7 @@
         name: kibana
         state: started
     
-    - name: Restart kibana server
+    - name: Restarting kibana server
       service:
         name: kibana
         state: restarted
