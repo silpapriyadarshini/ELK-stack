@@ -1,61 +1,63 @@
 ---
-- hosts: default
-  gather_facts: yes
-
-  pre_tasks:
-    - name: updating apt cache if needed
-      become: yes
-      apt:
-        update_cache=yes
-        cache_valid_time=3600
-
+- name: Logstash installing...
+  hosts: default
+  gather_facts: no
+  become: yes
   tasks:
-    - name: Installing Java Runtime Environment 
-      become: yes
+    - name: Install java
       apt:
         name: default-jre
         state: present
 
-    - name: Downloading Logstash Deb Package
-      get_url:
-        url: https://artifacts.elastic.co/downloads/logstash/logstash-7.6.2.deb
-        dest: /tmp
-    
-    - name: Installing Logstash Deb Package
-      become: yes
+    - name: add apt key
+      apt_key:
+        url: "https://artifacts.elastic.co/GPG-KEY-elasticsearch"
+        keyring: /usr/share/keyrings/elasticsearch-keyring.gpg
+        state: present
+        
+    - name: Install apt-transport-https
       apt:
-        deb: /tmp/logstash-7.6.2.deb
+        name: apt-transport-https
+        update_cache: yes
 
-    - name: Creating Logstash Pipeline File
-      become: yes
+    - name: Adding repo
+      apt_repository:
+        repo: "deb [signed-by=/usr/share/keyrings/elasticsearch-keyring.gpg] https://artifacts.elastic.co/packages/8.x/apt stable main"
+        state: present
+        filename: elastic-8.x
+
+    - name: wait for conncetion
+      ansible.builtin.wait_for_connection:
+        timeout: 35
+
+    - name: Install logstash
+      apt:
+        name: logstash
+        state: present
+        update_cache: yes
+
+    - name: create file main.conf for pipeline configuration
       file:
-          path: /etc/logstash/conf.d/main.conf
-          state: touch
+        path: /etc/logstash/conf.d/main.conf
+        state: touch
+        mode: u+rwx
 
-    - name: Adding Logstash Pipeline Configuration
-      become: yes
+    - name: Create logstash pipeline configuration
       blockinfile:
-          path: /etc/logstash/conf.d/main.conf
-          marker: ""
-          block: |
-            input {
-              file {
-              path => "//pri_ip_filebeat/e$/*.log"
-              start_position => "beginning"
-              }
-            output {
-              elasticsearch { hosts => ["pri_es:9200"]
-              }
+        path: /etc/logstash/conf.d/main.conf
+        marker: ""
+        block: |
+          input {
+            beats {
+              port => 5044
             }
-          #private ip of elaticsearch
-    
-    - name: Starting Logstash Service
-      become: yes
-      service:
+          }
+          output {
+            elasticsearch { hosts => ["pri_ip_es:9200"]}
+          }
+
+    - name: start logstash
+      service: 
         name: logstash
         state: started
-
-    # - name: Restarting Logstash server
-    #   service:
-    #     name: logstash
-    #     state: restarted
+        enabled: true

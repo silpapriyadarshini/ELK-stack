@@ -1,67 +1,63 @@
 ---
-- hosts: default
-  become: true
-
+- name: Kibana installing...
+  hosts: default
+  gather_facts: no
+  become: yes
   tasks:
-    - name: updating apt cache if needed
-      become: yes
+    - name: Install java
       apt:
-        update_cache=yes
+        name: default-jre
+        state: present
 
-    - name: Installing Java Runtime Environment 
-      become: yes
+    - name: add apt key
+      apt_key:
+        url: "https://artifacts.elastic.co/GPG-KEY-elasticsearch"
+        keyring: /usr/share/keyrings/elasticsearch-keyring.gpg
+        state: present
+        
+    - name: Install apt-transport-https
       apt:
-       name: default-jre
-       state: present
+        name: apt-transport-https
+        update_cache: yes
+ 
+    - name: Adding repo
+      apt_repository:
+        repo: "deb [signed-by=/usr/share/keyrings/elasticsearch-keyring.gpg] https://artifacts.elastic.co/packages/8.x/apt stable main"
+        state: present
+        filename: elastic-8.x
+        install_python_apt: true
+        update_cache: yes
 
-    - name: Downloading Kibana Deb Package
-      get_url:
-        url: https://artifacts.elastic.co/downloads/kibana/kibana-8.1.3-amd64.deb
-        dest: /tmp
-
-    - name: Installing Kibana Deb Package
-      become: yes
+    - name: wait for conncetion
+      ansible.builtin.wait_for_connection:
+        timeout: 35
+      
+    - name: Install Kibana
       apt:
-        deb: /tmp/kibana-8.1.3-amd64.deb
-    
-    - name: Updating Kibana Config (IP Address)
-      become: yes
-      lineinfile:
+        name: kibana
+        state: present
+        update_cache: yes
+        
+    - name: update kibana config IP to 0.0.0.0
+      lineinfile: 
         destfile: /etc/kibana/kibana.yml
         regexp: 'server.host'
-        line: 'server.host: "0.0.0.0"'
-    
-    - name: Updating the port in config file for Kibana
-      become: yes
+        line: 'server.host: 0.0.0.0'
+
+    - name: update kibana config file http port to 5601
       lineinfile:
         destfile: /etc/kibana/kibana.yml
         regexp: 'server.port'
         line: 'server.port: 5601'
-    
-    - name: Updating Kibana URL
-      become: yes
-      lineinfile:
+
+    - name: update kibana config URL of elasticsearch
+      lineinfile: 
         destfile: /etc/kibana/kibana.yml
         regexp: 'elasticsearch.hosts'
-        line: 'elasticsearch.hosts: ["http://pri_es:9200"]'
-    #private ip of elaticsearch
-    
-    - name: Starting Kibana Service
-      become: yes
-      service:
+        line: 'elasticsearch.hosts: ["http://pri_ip_es:9200"]'
+
+    - name: Start kibana
+      service: 
         name: kibana
         state: started
-    
-    - name: Restarting kibana server
-      service:
-        name: kibana
-        state: restarted
-
-    # - name: Enabling Kibana service
-    #   systemd:
-    #     name: kibana
-    #     enabled: yes
-    #     daemon_reload: yes
-    
-    # - name: Ensure Kibana is running
-    #   systemd: state=started name=kibana
+        enabled: true

@@ -1,5 +1,5 @@
 instance_type       = "t2.micro"
 aws_region          = "ap-southeast-2"
-vpc_id              = "vpc-06c9e2ba5ec6d6d2d"
-subnet_id           = "subnet-05b96b34b3bba542a"
-security_group_id   = "sg-09c9dd9bde8281939"
+vpc_id              = "vpc-0a78e027399584346"
+subnet_id           = "subnet-0006587ad07b882a3"
+security_group_id   = "sg-0ddf9716dbcfff575"

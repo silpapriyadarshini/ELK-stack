@@ -141,7 +141,7 @@ resource "aws_security_group" "logstash_sg" {
 
   ingress {
     description      = "Allow port 5044"
-    from_port        = 5043
+    from_port        = 5044
     to_port          = 5044
     protocol         = "tcp"
     cidr_blocks      = [var.pri_ip_bastionhost, var.pri_ip_elasticsearch]
